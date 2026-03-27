@@ -12,6 +12,11 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return (
+            super().get_queryset().filter(status=Post.Status.PUBLISHED)
+        )
 
 class Post(models.Model):
 
@@ -40,6 +45,9 @@ class Post(models.Model):
    )
 
    tags = models.ManyToManyField(Tag, blank=True)
+
+   objects = models.Manager()
+   published = PublishedManager()
 
    class Meta:
        ordering = ['-publish']

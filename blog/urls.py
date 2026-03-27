@@ -1,6 +1,9 @@
 from django.urls import path
+from .views import PostListAPIView
+
+app_name = 'blog'
 
 urlpatterns = [
-    # Ovde dolaze naši API endpointi — za sada prazno
+    path('posts/', PostListAPIView.as_view(), name='post_list_api')
 
 ]
